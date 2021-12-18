@@ -1,6 +1,6 @@
 import { LegPair } from './Leg';
 import { Claw } from './Claw';
-import { Trigram, trigramMap } from '../divination/Trigram';
+import { Trigram } from '../divination/Trigram';
 
 export class Scorpion {
   rightClaw: Claw;
@@ -47,7 +47,7 @@ export class Scorpion {
       this.leftFrontLegs.touchingEachOther ? !leftTrigram.middleLineUnbroken : leftTrigram.middleLineUnbroken,
       this.leftRearLegs.touchingEachOther ? !leftTrigram.bottomLineUnbroken : leftTrigram.bottomLineUnbroken,
     );
-    
+
     const rightTrigram: Trigram = new Trigram(
       !this.rightClaw.open,
       this.rightFrontLegs.representsUnbrokenLine(),
