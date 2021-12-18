@@ -62,16 +62,24 @@ export class Trigram {
     return '---   ---';
   }
 
-  bottomLineToString():string{
+  bottomLineToString(): string {
     return this.lineString(this.bottomLineUnbroken);
   }
 
-  middleLineToString():string{
+  middleLineToString(): string {
     return this.lineString(this.middleLineUnbroken);
   }
 
-  topLineToString():string{
+  topLineToString(): string {
     return this.lineString(this.topLineUnbroken);
+  }
+
+  getBinary(): string {
+    return Trigram.getBinary(
+      this.bottomLineUnbroken,
+      this.middleLineUnbroken,
+      this.topLineUnbroken
+    );
   }
 
   static getBinary(
@@ -85,6 +93,7 @@ export class Trigram {
     binaryString += topLineUnbroken ? "1" : "0";
     return binaryString;
   }
+
 }
 
 export const trigramMap: { [key: string]: Trigram } = {

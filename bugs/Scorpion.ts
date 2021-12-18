@@ -47,6 +47,7 @@ export class Scorpion {
       this.leftFrontLegs.touchingEachOther ? !leftTrigram.middleLineUnbroken : leftTrigram.middleLineUnbroken,
       this.leftRearLegs.touchingEachOther ? !leftTrigram.bottomLineUnbroken : leftTrigram.bottomLineUnbroken,
     );
+    
     const rightTrigram: Trigram = new Trigram(
       !this.rightClaw.open,
       this.rightFrontLegs.representsUnbrokenLine(),
@@ -57,6 +58,7 @@ export class Scorpion {
       this.rightFrontLegs.touchingEachOther ? !rightTrigram.middleLineUnbroken : rightTrigram.middleLineUnbroken,
       this.rightRearLegs.touchingEachOther ? !rightTrigram.bottomLineUnbroken : rightTrigram.bottomLineUnbroken,
     );
+
     const stringRepresentation: string = `
               ___    ___
              (  ${this.leftClaw.open ? '<' : '='}    ${this.rightClaw.open ? '>' : '='}  )
@@ -68,18 +70,23 @@ export class Scorpion {
             ${this.leftFrontLegs.legTwo.touchingGround ? '\\' : '_'}_|__|__|__|_${this.rightFrontLegs.legTwo.touchingGround ? '/' : '_'}
             ${this.leftRearLegs.legOne.touchingGround ? '\\' : '_'}_|__\\__/__|_${this.rightRearLegs.legOne.touchingGround ? '/' : '_'}
             ${this.leftRearLegs.legTwo.touchingGround ? '\\' : '_'}_|__\\__/__|_${this.rightRearLegs.legTwo.touchingGround ? '/' : '_'}
-${leftTrigram.paddedName}       \\\\__//           ${rightTrigram.paddedName}
-${leftTrigram.topLineToString()}${this.leftClaw.extended ? ' F' : '  '}      \\||/   _)       ${rightTrigram.topLineToString()}${this.rightClaw.extended ? ' F' : '  '}
-${leftTrigram.middleLineToString()}${this.leftFrontLegs.touchingEachOther ? ' F' : '  '}       ||   ( )       ${rightTrigram.middleLineToString()}${this.rightFrontLegs.touchingEachOther ? ' F' : '  '}
-${leftTrigram.bottomLineToString()}${this.leftRearLegs.touchingEachOther ? ' F' : '  '}       \\\\___//        ${rightTrigram.bottomLineToString()}${this.rightRearLegs.touchingEachOther ? ' F' : '  '}
+${leftTrigram.paddedName}       \\\\__//       ${rightTrigram.paddedName}
+${leftTrigram.topLineToString()}${this.leftClaw.extended ? ' F' : '  '}      \\||/   _)   ${rightTrigram.topLineToString()}${this.rightClaw.extended ? ' F' : '  '}
+${leftTrigram.middleLineToString()}${this.leftFrontLegs.touchingEachOther ? ' F' : '  '}       ||   ( )   ${rightTrigram.middleLineToString()}${this.rightFrontLegs.touchingEachOther ? ' F' : '  '}
+${leftTrigram.bottomLineToString()}${this.leftRearLegs.touchingEachOther ? ' F' : '  '}       \\\\___//    ${rightTrigram.bottomLineToString()}${this.rightRearLegs.touchingEachOther ? ' F' : '  '}
                    '---'
 
-------------------FUTURE------------------
+-----------------FUTURE-----------------
 
-${leftFutureTrigram.paddedName}                        ${rightFutureTrigram.paddedName}
-${leftFutureTrigram.topLineToString()}                        ${rightFutureTrigram.topLineToString()}
-${leftFutureTrigram.middleLineToString()}                        ${rightFutureTrigram.middleLineToString()}
-${leftFutureTrigram.bottomLineToString()}                        ${rightFutureTrigram.bottomLineToString()}
+${leftFutureTrigram.paddedName}                    ${rightFutureTrigram.paddedName}
+${leftFutureTrigram.topLineToString()}                    ${rightFutureTrigram.topLineToString()}
+${leftFutureTrigram.middleLineToString()}                    ${rightFutureTrigram.middleLineToString()}
+${leftFutureTrigram.bottomLineToString()}                    ${rightFutureTrigram.bottomLineToString()}
+
+---------------HEXAGRAMS----------------
+-----PRESENT-----      -----FUTURE------
+
+
                    `;
 
 
