@@ -4,11 +4,9 @@ Here's an example of the current implementation:
 ```
 npm run start
 
-> bug-bagua@1.0.0 start C:\Users\mismatch\github\bug-bagua
 > ts-node index.ts
 
-Consulting the Tao...
-FREEZE!
+Consulting the Tao... FREEZE
 Here is your bug's position:
 
               ___    ___
@@ -17,21 +15,44 @@ Here is your bug's position:
              \\___..___//
               \-(    )-/
               /__|__|__\
+            \_|__|__|__|_/
             __|__|__|__|__
-            \_|__|__|__|__
+            \_|__\__/__|__
             \_|__\__/__|_/
-            __|__\__/__|__
-  Earth         \\__//             Pond
----   --- F      \||/   _)       ---   --- F
----   ---         ||   ( )       ---------
----   ---         \\___//        --------- F
+Mountain        \\__//        Thunder
+---------        \||/   _)   ---   ---
+---   --- F       ||   ( )   ---   --- F
+---   ---         \\___//    ---------
                    '---'
+    |                            |
+    |                            |
+    V                            V
 
-------------------FUTURE------------------
+  Wind                       Pond
+---------                    ---   ---
+---------                    ---------
+---   ---                    ---------
 
- Thunder                           Water
----   ---                        ---   ---
----   ---                        ---------
----------                        ---   ---
+---------------PRESENT----------------
+
+          62: Small Exceeding
+              ---------
+              ---   --- F
+              ---   ---
+
+              ---   ---
+              ---   --- F
+              ---------
+
+---------------FUTURE-----------------
+
+          28: Great Exceeding
+              ---------
+              ---------
+              ---   ---
+
+              ---   ---
+              ---------
+              ---------
 
 ```

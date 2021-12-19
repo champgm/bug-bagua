@@ -43,18 +43,14 @@ export class Scorpion {
       this.leftFrontLegs.representsUnbrokenLine(), this.leftFrontLegs.affectsFuture(),
       this.leftClaw.closed, this.leftClaw.affectsFuture(),
     );
-    console.log(`DEBUG LEFT TRIG${leftTrigram.toString()}`);
     const leftFutureTrigram: Trigram = leftTrigram.toFuture();
-    console.log(`DEBUG LEFT FUTURE${leftFutureTrigram.toString()}`);
 
     const rightTrigram: Trigram = new Trigram(
       this.rightRearLegs.representsUnbrokenLine(), this.rightRearLegs.affectsFuture(),
       this.rightFrontLegs.representsUnbrokenLine(), this.rightFrontLegs.affectsFuture(),
       this.rightClaw.closed, this.rightClaw.affectsFuture(),
     );
-    console.log(`DEBUG RIGHT TRIG${rightTrigram.toString()}`);
     const rightFutureTrigram: Trigram = rightTrigram.toFuture();
-    console.log(`DEBUG RIGHT FUTURE${rightFutureTrigram.toString()}`);
 
     const presentHexagram: Hexagram = new Hexagram(leftTrigram, rightTrigram);
     const futureHexagram: Hexagram = new Hexagram(leftFutureTrigram, rightFutureTrigram);
