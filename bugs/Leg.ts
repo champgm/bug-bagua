@@ -1,7 +1,7 @@
 import Divine from '../divination/Divine';
 export class Leg {
   touchingGround: boolean;
-
+  
   constructor() {
     this.touchingGround = Divine.sample();
   }

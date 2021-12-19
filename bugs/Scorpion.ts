@@ -1,6 +1,7 @@
 import { LegPair } from './Leg';
 import { Claw } from './Claw';
 import { Trigram } from '../divination/Trigram';
+import { Hexagram } from '../divination/Hexagram';
 
 export class Scorpion {
   rightClaw: Claw;
@@ -20,48 +21,48 @@ export class Scorpion {
     this.leftRearLegs = new LegPair();
   }
 
-  getLeftTrigram(): Trigram {
-    return new Trigram(
-      this.leftClaw.open,
-      this.leftFrontLegs.representsUnbrokenLine(),
-      this.leftRearLegs.representsUnbrokenLine()
-    );
-  }
+  // getLeftTrigram(): Trigram {
+  //   return new Trigram(
+  //     this.leftClaw.open,
+  //     this.leftFrontLegs.representsUnbrokenLine(),
+  //     this.leftRearLegs.representsUnbrokenLine(),
+  //   );
+  // }
 
-  getRightTrigram(): Trigram {
-    return new Trigram(
-      this.rightClaw.open,
-      this.rightFrontLegs.representsUnbrokenLine(),
-      this.rightRearLegs.representsUnbrokenLine()
-    );
-  }
+  // getRightTrigram(): Trigram {
+  //   return new Trigram(
+  //     this.rightClaw.open,
+  //     this.rightFrontLegs.representsUnbrokenLine(),
+  //     this.rightRearLegs.representsUnbrokenLine(),
+  //   );
+  // }
 
   toString(): string {
     const leftTrigram: Trigram = new Trigram(
-      !this.leftClaw.open,
-      this.leftFrontLegs.representsUnbrokenLine(),
-      this.leftRearLegs.representsUnbrokenLine()
+      this.leftRearLegs.representsUnbrokenLine(), this.leftRearLegs.affectsFuture(),
+      this.leftFrontLegs.representsUnbrokenLine(), this.leftFrontLegs.affectsFuture(),
+      this.leftClaw.closed, this.leftClaw.affectsFuture(),
     );
-    const leftFutureTrigram: Trigram = new Trigram(
-      this.leftClaw.extended ? !leftTrigram.bottomLineUnbroken : leftTrigram.bottomLineUnbroken,
-      this.leftFrontLegs.touchingEachOther ? !leftTrigram.middleLineUnbroken : leftTrigram.middleLineUnbroken,
-      this.leftRearLegs.touchingEachOther ? !leftTrigram.bottomLineUnbroken : leftTrigram.bottomLineUnbroken,
-    );
+    console.log(`DEBUG LEFT TRIG${leftTrigram.toString()}`);
+    const leftFutureTrigram: Trigram = leftTrigram.toFuture();
+    console.log(`DEBUG LEFT FUTURE${leftFutureTrigram.toString()}`);
 
     const rightTrigram: Trigram = new Trigram(
-      !this.rightClaw.open,
-      this.rightFrontLegs.representsUnbrokenLine(),
-      this.rightRearLegs.representsUnbrokenLine()
+      this.rightRearLegs.representsUnbrokenLine(), this.rightRearLegs.affectsFuture(),
+      this.rightFrontLegs.representsUnbrokenLine(), this.rightFrontLegs.affectsFuture(),
+      this.rightClaw.closed, this.rightClaw.affectsFuture(),
     );
-    const rightFutureTrigram: Trigram = new Trigram(
-      this.rightClaw.extended ? !rightTrigram.bottomLineUnbroken : rightTrigram.bottomLineUnbroken,
-      this.rightFrontLegs.touchingEachOther ? !rightTrigram.middleLineUnbroken : rightTrigram.middleLineUnbroken,
-      this.rightRearLegs.touchingEachOther ? !rightTrigram.bottomLineUnbroken : rightTrigram.bottomLineUnbroken,
-    );
+    console.log(`DEBUG RIGHT TRIG${rightTrigram.toString()}`);
+    const rightFutureTrigram: Trigram = rightTrigram.toFuture();
+    console.log(`DEBUG RIGHT FUTURE${rightFutureTrigram.toString()}`);
 
+    const presentHexagram: Hexagram = new Hexagram(leftTrigram, rightTrigram);
+    const futureHexagram: Hexagram = new Hexagram(leftFutureTrigram, rightFutureTrigram);
+
+    //TODO: Rotate image 180 degrees so it matches claws corresponding to bottom line (hahaha...no)
     const stringRepresentation: string = `
               ___    ___
-             (  ${this.leftClaw.open ? '<' : '='}    ${this.rightClaw.open ? '>' : '='}  )
+             (  ${this.leftClaw.closed ? '=' : '<'}    ${this.rightClaw.closed ? '=' : '>'}  )
              //        \\\\
              \\\\___..___//
               \\-(    )-/
@@ -71,22 +72,40 @@ export class Scorpion {
             ${this.leftRearLegs.legOne.touchingGround ? '\\' : '_'}_|__\\__/__|_${this.rightRearLegs.legOne.touchingGround ? '/' : '_'}
             ${this.leftRearLegs.legTwo.touchingGround ? '\\' : '_'}_|__\\__/__|_${this.rightRearLegs.legTwo.touchingGround ? '/' : '_'}
 ${leftTrigram.paddedName}       \\\\__//       ${rightTrigram.paddedName}
-${leftTrigram.topLineToString()}${this.leftClaw.extended ? ' F' : '  '}      \\||/   _)   ${rightTrigram.topLineToString()}${this.rightClaw.extended ? ' F' : '  '}
-${leftTrigram.middleLineToString()}${this.leftFrontLegs.touchingEachOther ? ' F' : '  '}       ||   ( )   ${rightTrigram.middleLineToString()}${this.rightFrontLegs.touchingEachOther ? ' F' : '  '}
-${leftTrigram.bottomLineToString()}${this.leftRearLegs.touchingEachOther ? ' F' : '  '}       \\\\___//    ${rightTrigram.bottomLineToString()}${this.rightRearLegs.touchingEachOther ? ' F' : '  '}
+${leftTrigram.topLineToString()}      \\||/   _)   ${rightTrigram.topLineToString()}
+${leftTrigram.middleLineToString()}       ||   ( )   ${rightTrigram.middleLineToString()}
+${leftTrigram.bottomLineToString()}       \\\\___//    ${rightTrigram.bottomLineToString()}
                    '---'
+    |                            |        
+    |                            |        
+    V                            V
 
------------------FUTURE-----------------
+${leftFutureTrigram.paddedName}                  ${rightFutureTrigram.paddedName}
+${leftFutureTrigram.topLineToString()}                  ${rightFutureTrigram.topLineToString()}
+${leftFutureTrigram.middleLineToString()}                  ${rightFutureTrigram.middleLineToString()}
+${leftFutureTrigram.bottomLineToString()}                  ${rightFutureTrigram.bottomLineToString()}
 
-${leftFutureTrigram.paddedName}                    ${rightFutureTrigram.paddedName}
-${leftFutureTrigram.topLineToString()}                    ${rightFutureTrigram.topLineToString()}
-${leftFutureTrigram.middleLineToString()}                    ${rightFutureTrigram.middleLineToString()}
-${leftFutureTrigram.bottomLineToString()}                    ${rightFutureTrigram.bottomLineToString()}
+---------------PRESENT----------------
 
----------------HEXAGRAMS----------------
------PRESENT-----      -----FUTURE------
+       ${presentHexagram.name}
+              ${presentHexagram.top.topLineToString()}
+              ${presentHexagram.top.middleLineToString()}
+              ${presentHexagram.top.bottomLineToString()}
 
+              ${presentHexagram.bottom.topLineToString()}
+              ${presentHexagram.bottom.middleLineToString()}
+              ${presentHexagram.bottom.bottomLineToString()}
+              
+---------------FUTURE-----------------
 
+       ${presentHexagram.name}
+              ${futureHexagram.top.topLineToString()}
+              ${futureHexagram.top.middleLineToString()}
+              ${futureHexagram.top.bottomLineToString()}
+
+              ${futureHexagram.bottom.topLineToString()}
+              ${futureHexagram.bottom.middleLineToString()}
+              ${futureHexagram.bottom.bottomLineToString()}
                    `;
 
 

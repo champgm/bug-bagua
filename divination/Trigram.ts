@@ -4,9 +4,9 @@ export class Trigram {
   paddedName: string;
 
   constructor(
-    public bottomLineUnbroken: boolean,
-    public middleLineUnbroken: boolean,
-    public topLineUnbroken: boolean,
+    public topLineUnbroken: boolean, public topLineFuture: boolean,
+    public middleLineUnbroken: boolean, public middleLineFuture: boolean,
+    public bottomLineUnbroken: boolean, public bottomLineFuture: boolean
   ) {
     const binaryString = Trigram.getBinary(bottomLineUnbroken, middleLineUnbroken, topLineUnbroken);
     this.name = binaryString;
@@ -23,23 +23,30 @@ export class Trigram {
     }
   }
 
-  private lineString(unbroken: boolean): string {
+  private lineString(unbroken: boolean, future: boolean): string {
     if (unbroken) {
-      return '---------';
+      return `---------${future ? ' F' : '  '}`;
     }
-    return '---   ---';
+    return `---   ---${future ? ' F' : '  '}`;
   }
 
   bottomLineToString(): string {
-    return this.lineString(this.bottomLineUnbroken);
+    return this.lineString(this.bottomLineUnbroken, this.bottomLineFuture);
   }
 
   middleLineToString(): string {
-    return this.lineString(this.middleLineUnbroken);
+    return this.lineString(this.middleLineUnbroken, this.middleLineFuture);
   }
 
   topLineToString(): string {
-    return this.lineString(this.topLineUnbroken);
+    return this.lineString(this.topLineUnbroken, this.topLineFuture);
+  }
+
+  toString(): string {
+    return `
+${this.topLineToString()} ${this.topLineFuture ? 'F' : ' '}
+${this.middleLineToString()} ${this.middleLineFuture ? 'F' : ' '}
+${this.bottomLineToString()} ${this.bottomLineFuture ? 'F' : ' '}`;
   }
 
   getBinary(): string {
@@ -47,6 +54,14 @@ export class Trigram {
       this.bottomLineUnbroken,
       this.middleLineUnbroken,
       this.topLineUnbroken
+    );
+  }
+
+  toFuture(): Trigram {
+    return new Trigram(
+      this.topLineFuture ? !this.topLineUnbroken : this.topLineUnbroken, false,
+      this.middleLineFuture ? !this.middleLineUnbroken : this.middleLineUnbroken, false,
+      this.bottomLineFuture ? !this.bottomLineUnbroken : this.bottomLineUnbroken, false,
     );
   }
 

@@ -1,15 +1,15 @@
 import Divine from '../divination/Divine';
 export class Claw {
-  open: boolean;
+  closed: boolean;
   extended: boolean;
 
   constructor() {
-    this.open = Divine.sample();
+    this.closed = Divine.sample();
     this.extended = Divine.future();
   }
 
   public representsBrokenLine(): boolean {
-    return this.open;
+    return !this.closed;
   }
   public affectsFuture(): boolean {
     return this.extended;
