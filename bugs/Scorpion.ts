@@ -98,7 +98,7 @@ ${leftFutureTrigram.bottomLineToString()}                  ${rightFutureTrigram.
               
 ---------------FUTURE-----------------
 
-       ${presentHexagram.name}
+       ${futureHexagram.name}
               ${futureHexagram.top.topLineToString()}
               ${futureHexagram.top.middleLineToString()}
               ${futureHexagram.top.bottomLineToString()}
