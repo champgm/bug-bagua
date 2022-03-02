@@ -6,7 +6,7 @@ export class Hexagram {
   name: string;
   number: number;
   constructor(public top: Trigram, public bottom: Trigram) {
-    const binaryString = top.getBinary() + bottom.getBinary();
+    const binaryString = bottom.getBinary() + top.getBinary();
     this.name = binaryString;
     this.number = 0;
     switch (binaryString) {
